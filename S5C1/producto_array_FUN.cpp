@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-
+//listo
 int productouno(int a[],int b[]){
     int arr3[5];
     for(int i=0; i<5; i++)
