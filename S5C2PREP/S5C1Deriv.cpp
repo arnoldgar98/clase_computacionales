@@ -1,7 +1,17 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
 
-double *derivada(){
+
+float *derivada(int punt, float arre[], double delt){
+    float *derivada;
+    derivada= new float[punt];
+    for(int i=0; i<punt;i++)
+    {  
+        derivada[i]=(arre[i+1]-arre[i-1])/(2*delt);
+        cout<<derivada[i] << " ";
+    }
+    return derivada;
     
 }
 
@@ -17,17 +27,26 @@ int main()
     cout<<"Ingrese el numero de puntos ";
     cin>>numpuntos;
     
-    float *deriva;
-    deriva= new float[numpuntos];
+    float *x;
+    x= new float[numpuntos];
     
     double delta= (b-a)/(numpuntos);
-    int arr[numpuntos];
+    float *arr;
+    arr= new float[numpuntos];
     for(int i=0; i<=numpuntos; i++)
     {       
-        deriva[i]= (a+delta*i);
-        arr[i]=deriva[i];
-        cout<<deriva[i];      
+        x[i]= (a+delta*i);
+        arr[i]=x[i];
+        cout<<arr[i]<<endl;      
     }
+    
+    float *coseno;
+    coseno= new float[numpuntos];
+    for(int j=0;j<=numpuntos;j++){
+        coseno[j]=cos(arr[j]);
+        cout<<coseno[j]<<" ";
+    }
+    derivada(numpuntos,coseno,delta);
     
     return 0;    
         
