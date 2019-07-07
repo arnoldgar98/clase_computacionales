@@ -1,55 +1,61 @@
 #include<iostream>
 #include<fstream>
 using namespace std;
+ofstream outfile;
 //kg
 int m=2;
 //N/M
 int k=300;
-double derivada1(float a,float b)
+//definicion de las dos derivadas
+double dv(float ti, float x1, float v1)
 {
-    return -(k/m)*b;
+    return -(k/m)*x1;
 }
-
-double derivadax(){
-    return v;
+double dx(float ti,float x1, float v1){
+    return v1;
 }
-
-
-double run(double deltat,double iniy,double finy){ 
+int main(){
+    double a=0;
+    double b=5;
+    double delta=0.01;
+    int puntos = (b-a)/delta;
     
-    int puntos=(finy-iniy)/deltat;
-    float *pt;
     float t[puntos];
     float x[puntos];
-    float *px;
-    pt=t;
-    px=x;
+    float v[puntos];
+    float *pt = t;
+    float *px= x;
+    float *pv= v;
     t[0]=0;
     x[0]=0.1;
+    v[0]=0;
+    outfile.open("datos.dat");
     for(int i=1;i<=puntos;i++)
     {
-        float k1=deltat *derivada(xx[i-1],yy[i-1]);
-        float k2=deltat*derivada(xx[i-1]+0.5*deltat, yy[i-1] + 0.5 * k1);
-        float k3 = deltat * derivada(xx[i-1]+0.5*deltat,yy[i-1]+0.5*k2);
-        float k4 = deltat*derivada(xx[i-1]+deltat,yy[i-1]+k3);
-        float promedio=(1.0/6.0)*(k1+2.0*k2+2.0*k3 +k4);
-        xx[i] = xx[i-1] + deltat;
-        yy[i] = yy[i-1] + promedio;
-        cout<<xx[i]<<";"<<yy[i]<<endl;
-}
+        float k1x=delta*dx(t[i-1],x[i-1],v[i-1]);
+        float k1v=delta*dv(t[i-1],x[i-1],v[i-1]);
+            
+        float k2x=delta*dx(t[i-1]+0.5*delta, x[i-1] + 0.5 * k1x, v[i-1]+ 0.5*k1v);
+        float k2v=delta*dv(t[i-1]+0.5*delta, x[i-1] + 0.5 * k1x, v[i-1]+ 0.5*k1x);
+            
+        float k3x=delta*dx(t[i-1]+0.5*delta, x[i-1]+ 0.5*k2x, v[i-1]+ 0.5*k2v);
+        float k3v=delta*dv(t[i-1]+0.5*delta,x[i-1]+ 0.5*k2x, v[i-1]+ 0.5*k2x);
+            
+        float k4x =delta*dx(t[i-1]+delta, x[i-1]+k3x, v[i-1]+ k3v);
+        float k4v =delta*dv(t[i-1]+delta, x[i-1]+k3x, v[i-1]+ k3x);
+        float promediox=(1.0/6.0)*(k1x+2.0*k2x+2.0*k3x +k4x);
+        float promediov=(1.0/6.0)*(k1v+2.0*k2v+2.0*k3v +k4v);
+            
+        t[i] = t[i-1] + delta;
+        x[i] = x[i-1] + promediox;
+        v[i] = v[i-1] + promediov;
+        
+        cout<<"tiempo "<<i<<" "<<pt[i]<<";"<<"posicion "<<i<<" "<<px[i]<<";"<<"velocidad "<<i<<" "<<pv[i]<<endl;
+        outfile<<pt[i]<<";"<<px[i]<<";"<<pv[i]<<endl;
+    }
+    outfile.close();
     
 }
-
     
-
-int main(){
-    double del=0.1;
-    double ini= 0;
-    double fin=2;
-    run(del,ini,fin);
-    return 0;
-    
-}
-
  
     
