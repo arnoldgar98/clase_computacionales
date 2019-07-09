@@ -44,7 +44,27 @@ int main()
         ufut[i]= upres[i]+ ((cons*cons)/2)* (upres[i+1] -2*upres[i]+ upres[i-1]);
     }
     
+    double upas[puntos];
+    for(int i=1;i<puntos-1;i++)
+    {
+        upas[i]=upres[i];
+        upres[i]=ufut[i];
+    }
     
+    int tiempo=100;
+    for(int i=0; i<tiempo;i++)
+    {
+        for(int j=1;j<puntos;j++)
+        {
+            ufut[i]=            
+        }
+        for(int b=0;b<puntos;b++)
+        {
+            upas[b]=upres[b];
+            upres[b]=ufut[b];
+        }
+        
+    }
     
     
     return 0;
