@@ -15,9 +15,16 @@ upre3=datos3[:,1]
 
 plt.figure()
 plt.plot(x,upre)
-plt.plot(x3,upre3)
 plt.grid()
 plt.title("Ecuación del resorte ")
 plt.xlabel("Tiempo")
 plt.ylabel("Posición")
 plt.savefig("otro")
+
+plt.figure()
+plt.plot(x3,upre3)
+plt.grid()
+plt.title("Ecuación del resorte ")
+plt.xlabel("Tiempo")
+plt.ylabel("Posición")
+plt.savefig("otro1")

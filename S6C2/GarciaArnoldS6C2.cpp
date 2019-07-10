@@ -11,7 +11,7 @@ int main()
     double dt=0.005;
     double c=300;
     double dx= (b-a)/puntos;
-    double cons= c*(dx/dt);
+    double cons= (dx/dt*c);
     ofstream outfile;
     outfile.open("datos.dat"); 
     
@@ -47,7 +47,7 @@ int main()
     outfile1.open("datos2.dat"); 
     for(int i=1;i<puntos;i++)
     {
-        ufut[i]= upres[i]+ ((cons*cons)/2)* (upres[i+1]-2*upres[i]+upres[i-1]);
+        ufut[i]= ((cons*cons)/2)* (upres[i+1]-2*upres[i]+upres[i-1])+upres[i];
         
     }
     
