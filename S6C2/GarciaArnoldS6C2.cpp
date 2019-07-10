@@ -7,11 +7,10 @@ int main()
     double a=0;
     double b=0.1;
     double l=1.0;
-    int puntos= 200;
-    double dt=0.005;
     double c=300;
-    double dx= (b-a)/puntos;
-    double cons= (dx/dt*c);
+    double dx= 0.05;
+    double dt= (0.5*dx)/c;
+    int puntos= l/dx;
     ofstream outfile;
     outfile.open("datos.dat"); 
     
@@ -27,11 +26,11 @@ int main()
     //construccion del presente
     for(int i=0;i<puntos/2;i++)
     {
-        upres[i]= ((2*0.01)/l)*i*dt;
+        upres[i]= ((2*0.01)/l)*i*dx;
     }
     for(int i=puntos/2;i<=puntos;i++)
     {
-        upres[i]=((-2*0.01)/l)*i*dt+(2*0.01);        
+        upres[i]=((-2*0.01)/l)*i*dx+(2*0.01);        
     }
     for(int i=0; i<=puntos;i++)
     {
@@ -47,43 +46,46 @@ int main()
     outfile1.open("datos2.dat"); 
     for(int i=1;i<puntos;i++)
     {
-        ufut[i]= ((cons*cons)/2)* (upres[i+1]-2*upres[i]+upres[i-1])+upres[i];
+        ufut[i]= ((c*c)*(dt*dt)/(2*dx*dx))* (upres[i+1]+upres[i-1]-2*upres[i])+upres[i];
         
     }
     
     double upas[puntos];
-    double uprett[puntos];
-    for(int i=0;i<=puntos;i++)
+    for(int i=1;i<puntos-1;i++)
     {
+        
         upas[i]=upres[i];
-        uprett[i]=ufut[i];
-        outfile1<<x[i]<<";"<<uprett[i]<<endl;
+        upres[i]=ufut[i];
+        outfile1<<upres[i]<<endl;
     }
     outfile1.close();
     
-    
+   
     //para los futuros
     ofstream outfile3;
     outfile3.open("datos3.dat");
-    int tiempo=10;
+    int tiempo=1000;
     for(int i=0; i<tiempo;i++)
     {
-        for(int j=1;j<puntos;j++)
+        for(int j=1;j<=puntos-1;j++)
         {
-            ufut[i]=(2.0*(1.0-(cons*cons)))*uprett[i] - upas[i] + (cons*cons)*(uprett[i+1]+uprett[i-1]);
+            ufut[i]= ((c*c)*(dt*dt)/(dx*dx))*(upres[i+1]+upres[i-1]-2*upres[i])-upas[i]+(2*upres[i]);
             
         }
-        for(int b=0;b<puntos;b++)
+        for(int b=1;b<=puntos-1;b++)
         {
-            upas[b]=uprett[b];
-            uprett[b]=ufut[b];
-            outfile3<<x[b]<<";"<<uprett[b]<<endl;
+            
+            upas[b]=upres[b];
+            upres[b]=ufut[b];
+            outfile3<<upres[b]<<endl;
         }
+        
+        
         
     }
     outfile3.close();
     
-    
+   
     return 0;
     
 }
