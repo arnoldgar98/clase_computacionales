@@ -5,11 +5,13 @@ datos= np.genfromtxt("datos.dat",delimiter=";")
 x=datos[:,0]
 upre=datos[:,1]
 
-#datos2= np.genfromtxt("datos2.dat",delimiter=";")
-#upre2=datos2[:]
-
 datos3= np.genfromtxt("datos3.dat",delimiter=";")
-upre3=datos3[:]
+x3=datos3[:,0]
+upre3=datos3[:,1]
+
+datos4= np.genfromtxt("datos4.dat",delimiter=";")
+x4=datos4[:,0]
+upre4=datos4[:,1]
 
 plt.figure()
 plt.plot(x,upre)
@@ -17,14 +19,20 @@ plt.grid()
 plt.title("Ecuación del resorte ")
 plt.xlabel("Tiempo")
 plt.ylabel("Posición")
-plt.savefig("otro")
+plt.savefig("inicial")
 
 plt.figure()
-plt.plot(x,upre)
-plt.plot(x,upre2)
-plt.plot(x,upre3)
+plt.plot(x3,upre3)
 plt.grid()
 plt.title("Ecuación del resorte ")
 plt.xlabel("Tiempo")
 plt.ylabel("Posición")
-plt.savefig("otro1")
+plt.savefig("extremosfijos")
+
+plt.figure()
+plt.plot(x4,upre4)
+plt.grid()
+plt.title("Ecuación del resorte ")
+plt.xlabel("Tiempo")
+plt.ylabel("Posición")
+plt.savefig("extremoslibres")
