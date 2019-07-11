@@ -81,8 +81,13 @@ int main()
         //segundo punto
         upres2[i]=upres[i];
         upres2[puntos-1]=upres2[puntos-2];
-        //tercer punto
+        //Tercer punto, en la ultima condicion, donde ocurre nuevamente la condicion frontera
         uprespres3[i]= ((c*c)*(dt*dt)/(2*dx*dx))* (upas3[i+1]+upas3[i-1]-2*upas3[i])+upas3[i];
+        if(i==puntos-1){
+            upres3[i]= 0.01*sin(3.0*c*x[i]*pi/(l));
+        }
+            
+
         
         
     }
@@ -108,9 +113,11 @@ int main()
             //segundo punto
             ufut2[j]= ((c*c)*(dt*dt)/(dx*dx))*(upres2[j+1]+upres2[j-1]-2*upres2[j])-upas2[j]+(2*upres2[j]);
             ufut2[puntos-1]=ufut2[puntos-2];
-            //Tercer punto
+            //Tercer punto, en la ultima condicion, donde ocurre nuevamente la condicion frontera
             ufut3[j]= ((c*c)*(dt*dt)/(dx*dx))*(uprespres3[j+1]+uprespres3[j-1]-2*uprespres3[j])-upas3[j]+(2*uprespres3[j]);
-            
+            if(j==puntos-1){
+                ufut3[j]=0.01*sin(3.0*c*x[i]*pi/(l));
+            }
         }
         for(int b=0;b<=puntos;b++)
         {
@@ -141,6 +148,7 @@ int main()
             
             upas3[b]=upres3[b];
             upres3[b]=ufut3[b];
+            //la grafica no da aun, no se porque realmente
             if(avance%100==0)
             {
                 outfile3<<x[b]<<";"<<upres3[b]<<endl;
