@@ -26,29 +26,29 @@ int main()
     ofstream outfile;
     outfile.open("datos.dat"); 
     //construccion del primer paso
-    for(int i=0; i<puntos;i++)
+    for(int j=0; j<puntos;j++)
     {
-        for(int j=0;j<puntos;j++)
+        for(int i=0;i<puntos;i++)
         {
             
             if(i>=20&&i<=40&&j>=40&&j<=60)
             {
-                tinicial[i][j]=100;
-                tpasado[i][j]=tinicial[i][j];
-                tpresente[i][j]=tpasado[i][j];
+                tinicial[j][i]=100;
+                tpasado[j][i]=tinicial[j][i];
+                tpresente[j][i]=tpasado[j][i];
                 
-                tinicial2[i][j]=100;
-                tpasado2[i][j]=tinicial[i][j];
-                tpresente2[i][j]=tpasado2[i][j];
+                tinicial2[j][i]=100;
+                tpasado2[j][i]=tinicial[j][i];
+                tpresente2[j][i]=tpasado2[j][i];
             }
             else{
-                tinicial[i][j]=50;    
-                tpasado[i][j]=tinicial[i][j];
-                tpresente[i][j]=tpasado[i][j];
+                tinicial[j][i]=50;    
+                tpasado[j][i]=tinicial[j][i];
+                tpresente[j][i]=tpasado[j][i];
                 
-                tinicial2[i][j]=100;
-                tpasado2[i][j]=tinicial[i][j];
-                tpresente2[i][j]=tpasado2[i][j];
+                tinicial2[j][i]=100;
+                tpasado2[j][i]=tinicial[j][i];
+                tpresente2[j][i]=tpasado2[j][i];
             }
             
            
@@ -76,7 +76,7 @@ int main()
         {
             for(int j=1;j<puntos-1;j++)
             {
-                tpresente[i][j]= ((v*dt)/(dx*dx))* (tpasado[i+1][j]+tpasado[i-1][j]-2*tpasado[i][j])+ (v*dt/(dy*dy))* (tpasado[i][j+1]+tpasado[i][j-1]-2*tpasado[i][j])+tpasado[i][j];
+                tpresente[j][i]= ((v*dt)/(dx*dx))* (tpasado[j+1][i]+tpasado[j-1][i]-2*tpasado[j][i])+ (v*dt/(dy*dy))* (tpasado[j][i+1]+tpasado[j][i-1]-2*tpasado[j][i])+tpasado[j][i];
                 tpasado[i][j]=tpresente[i][j];
                 
                 tpresente2[i][j]= ((v*dt)/(dx*dx))* (tpasado2[i+1][j]+tpasado2[i-1][j]-2*tpasado2[i][j])+ (v*dt/(dy*dy))* (tpasado2[i][j+1]+tpasado2[i][j-1]-2*tpasado2[i][j])+tpasado2[i][j];
@@ -104,12 +104,12 @@ int main()
     }
     
     outfile2.open("datos2.dat");
-    outfile4.open("datos4.dat")
+    outfile4.open("datos4.dat");
     for(int c=0;c<puntos;c++)
     {
         for(int d=0;d<puntos;d++)
         {
-            outfile2<<tpresente[c][d]<< " ";
+            outfile2<<tpresente[d][c]<< " ";
             outfile4<<tpresente2[c][d]<<" ";
         }
         outfile2<<"\n";
