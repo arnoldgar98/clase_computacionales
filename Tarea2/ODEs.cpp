@@ -7,8 +7,8 @@ using namespace std;
 //En X
 double dvenx(float tiempo, float xx, float vx)
 {
-    double G = pow(6.674*10, -11);
-    double M = pow(1.989*10, 30);
+    double G = 6.674*pow(10, -11);
+    double M = 1.989*pow(10, 30);
     //Unidades astronomicas
     double r12= 1;
     return (-G*M/r12)*0.1163;
@@ -19,8 +19,8 @@ double dxenx(float tiempo,float xx, float vx){
 //En Y
 double dveny(float tiempo, float yy, float vy)
 {
-    double G = pow(6.674*10, -11);
-    double M = pow(1.989*10, 30);
+    double G = 6.674*pow(10, -11);
+    double M = 1.989*pow(10, 30);
     //Unidades astronomicas
     double r12= 1;
     return (-G*M/r12)*0.9772;
@@ -59,6 +59,7 @@ float euler(int fin, int ini, int puntos)
 //Segundo Método:Leap frog
 float leap_frog(int fin, int ini, int puntos)
 {
+    double dif= 0.01;
     //creacion de arreglos
     float x[puntos], y[puntos], vy[puntos], vx[puntos], tiem[puntos];
     //inicializacion con condiciones del enunciado
@@ -73,8 +74,8 @@ float leap_frog(int fin, int ini, int puntos)
         //avance del tiempo
         tiem[i]=tiem[i-1]+dt;
         //retroalimentacion de las variables al mismo tiempo
-        x[i]=x[i-1]+ dif*(dxenx(tiem[i-1],x[i-1],vx[i-1]));
-        y[i]=y[i-1]+ dif*(dyenx(tiem[i-1],x[i-1],vy[i-1]));
+        x[i]=x[i-1]+ dif*0.5*(dxenx(tiem[i-1],x[i-1],vx[i-1]));
+        y[i]=y[i-1]+ dif*0.5*(dyenx(tiem[i-1],x[i-1],vy[i-1]));
         vx[i]=vx[i-1]+ dif*(dvenx(tiem[i-1],x[i-1],vx[i-1]));
         vy[i]=vy[i-1]+ dif*(dveny(tiem[i-1],x[i-1],vx[i-1]));
     } 
