@@ -1,34 +1,86 @@
 #include<iostream>
 #include<fstream>
 using namespace std;
-ofstream outfile;
 
-int m=2;
-int k=300;
+
 //definicion de las dos derivadas
-double dv(float ti, float x1, float v1)
+//En X
+double dvenx(float ti, float xx, float vx)
 {
-    return -(k/m)*x1;
+    double G = pow(6.674*10, -11);
+    double M = pow(1.989*10, 30);
+    //Unidades astronomicas
+    double r12= 1;
+    return (-G*M/r12)*0.1163;
 }
-double dx(float ti,float x1, float v1){
-    return v1;
+double dxenx(float ti,float xx, float vx){
+    return vx;
 }
+//En Y
+double dveny(float ti, float yy, float vy)
+{
+    double G = pow(6.674*10, -11);
+    double M = pow(1.989*10, 30);
+    //Unidades astronomicas
+    double r12= 1;
+    return (-G*M/r12)*0.9772;
+}
+double dxeny(float ti, float yy, float vy)
+{
+    return vy;
+}
+
+//primer metodo: Euler
+
+float euler()
+{
+    //creacion de arreglos
+    double dif= 0.01;
+    float x[puntos], y[puntos], vy[puntos], vx[puntos], tiem[puntos];
+    //inicializar con condiciones del enunciado
+    x[0]=0.1163;
+    y[0]=0.9772;
+    vx[0]=-6.35;
+    vy[0]=0.606;
+    dt=(b-a)/puntos;
+    //desde 1, porque ya usamos la condicion inicial
+    for(int i=1; i<puntos;i++)
+    {
+        //avance del tiempo
+        tiem[i]=tiem[i-1]+dt;
+        //retroalimentacion de las variables al mismo tiempo
+        x[i]=x[i-1]+ dif*(dxenx(tiem[i-1],x[i-1],vx[i-1]));
+        y[i]=y[i-1]+ dif*(dyenx(tiem[i-1],x[i-1],vy[i-1]));
+        vx[i]=vx[i-1]+ dif*(dvenx(tiem[i-1],x[i-1],vx[i-1]));
+        vy[i]=vy[i-1]+ dif*(dveny(tiem[i-1],x[i-1],vx[i-1]));
+    }           
+}
+
+//Segundo Metodo:
+float leap_frog()
+{
+    //creacion de arreglos
+    float x[puntos], y[puntos], vy[puntos], vx[puntos], tiem[puntos];
+    //inicializacion con condiciones del enunciado
+}
+
+
 
 int main(){
     
-    //contantes y condiciones iniciales
     
-    double G= 6.674*pow(10,-11);
-    double M=1.98*pow(10,30);
-    double 
-        
-        x0 = 0:1163UA, y0 = 0:9772UA, vx0 =
-􀀀6:35UA/yr y vy0 = 0:606UA/yr
     
-    double a=0;
-    double b=5;
-    double delta=0.01;
-    int puntos = (b-a)/delta;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  //guia de rungekutta que hice en clase
     
     float t[puntos];
     float x[puntos];
