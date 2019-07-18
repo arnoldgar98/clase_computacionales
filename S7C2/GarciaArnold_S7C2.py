@@ -18,6 +18,7 @@ plt.savefig("distribucion")
 ##definimos el tamaño del paso
 def fun(x0,sig):
     paso=[]
+    #un aleatorio entre nuestros valores a evaluar, osea -4 y 4
     b=8*(np.random.random())-4
     paso.append(b)
     for i in range(x0):
@@ -40,38 +41,38 @@ def fun(x0,sig):
 a=-4
 b=4
 resIntegral=0
-def integralRec(m):
-    x=np.linspace(a,b,int(m))
+def integralRec(xguess1,m):
+  
     ancho= (b-a)/m
-    resIntegral = np.sum(ancho*mifun(x)) 
+    resIntegral = np.sum(ancho*mifun(xguess1)) 
     return resIntegral
 
 plt.figure()
-plt.plot(x,mifun(x))
+plt.plot(x,mifun(x)/integralRec(x,100))
 plt.title("Sigma 0.01 pasos 100000")
 plt.hist(fun(100000,0.01),bins=100,density=True)
 plt.savefig("sigma1")
 
 plt.figure()
-plt.plot(x,mifun(x/integralRec(1000)))
+plt.plot(x,mifun(x)/integralRec(x,100))
 plt.title("Sigma 5 pasos 100000")
 plt.hist(fun(100000,5),bins=100,density=True)
 plt.savefig("sigma2")
 
 plt.figure()
-plt.plot(x,mifun(x))
+plt.plot(x,mifun(x)/integralRec(x,100))
 plt.title("Sigma 0.2 pasos 100000")
 plt.hist(fun(100000,0.2),bins=100,density=True)
 plt.savefig("sigma3")
 
 plt.figure()
-plt.plot(x,mifun(x))
+plt.plot(x,mifun(x)/integralRec(x,100))
 plt.title("Sigma 0.1 pasos 1000")
 plt.hist(fun(1000,0.1),bins=100,density=True)
 plt.savefig("sigma4")
 
 plt.figure()
-plt.plot(x,mifun(x))
+plt.plot(x,mifun(x)/integralRec(x,100))
 plt.title("Sigma 0.1 pasos 100000")
 plt.hist(fun(100000,0.1),bins=100,density=True)
 plt.savefig("sigma5")
