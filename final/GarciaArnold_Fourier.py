@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from scipy.fftpack import fft, fftfreq
+from scipy.fftpack import fft, fftfreq, ifft
 
 n = 1280 # number of point in the whole interval
 f = 200.0 #  frequency in Hz
@@ -14,11 +14,26 @@ t = np.linspace( 0, (n-1)*dt, n)
 amp = np.cos(2 * np.pi * f * t) - 0.4 * np.sin(2 * np.pi * (2*f) * t ) + np.random.random(n)
 
 # SU FILTRO
+transformada=np.fft.fft(amp)
+frecuencias=np.fft.fftfreq(len(transformada),dt)
+print(frecuencias)
+
+
+for i in range(len(frecuencias)):
+    if frecuencias[i]>1000 or frecuencias[i]<-1000:
+        transformada[i]=0
+        
+        
+inversa=np.fft.ifft(transformada)        
+#inversa=np.ifft(amp)        
+# SU GRAFICA
 plt.figure()
 plt.plot(t,amp)
-plt.savefig("original")
-# SU GRAFICA
-
+plt.plot(t,inversa)
+plt.title("filtrada")
+plt.xlabel("t")
+plt.ylabel("amplitudes")
+plt.savefig("filtro.pdf")
 
 # Puede usar los siguientes paquetes:
 #from scipy.fftpack import fft, fftfreq, ifft
